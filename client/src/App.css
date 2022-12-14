@@ -3,6 +3,11 @@
   max-width: 600px;
   margin: 0 auto;
 }
+.details-interesado-btn{
+  color: rgb(43, 43, 211);
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .App-logo {
   height: 40vmin;

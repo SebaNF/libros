@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const uniqueValidator = require("mongoose-unique-validator")
+const {BookSchema} = require('./book.model')
 
 const UserSchema = new mongoose.Schema({
     firstName:{
@@ -25,7 +26,10 @@ const UserSchema = new mongoose.Schema({
         required:[true,"Por favor ingresar contraseña"],
         minlength:[8,"La contraseña debe tener minimo 8 caracteres"]
     },
-    books:[{type:mongoose.Schema.Types.ObjectId,ref:"Book"}],
+    books:{
+        type:[BookSchema], 
+        default: [],
+    },
     interesados:[]
 },
 {timestamps:true});

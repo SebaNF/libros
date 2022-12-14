@@ -44,18 +44,20 @@ const Main = () => {
 
     }
 
-    const desInteresar = async(book) =>{
+    /* const desInteresar = async(book) =>{
         if(user){
             user?.interesados.filter(interesado=>interesado._id!==book._id)
             setUser({...user})
             const response = await simplePut(`/api/user/${user._id}`,user);
 
         }
-    }
+    } */
     const renderBtn = (book) =>{
-        if(user){
+        console.log(user.books)
+        console.log(user.books.map(libro =>libro.idUser))
+        if(user /* && user.books.map(libro =>libro._idUser !==user._id) */){
             if(user.interesados.includes(book._id)){
-                return(<><button /* onClick={desInteresar(book)} */>Pendiente</button></>)
+                return(<><button>Pendiente</button></>)
             }else{
                 return(<><button type="button" className="btn btn-warning" onClick={()=>interesa(book)}>Me interesa</button></>)
             }

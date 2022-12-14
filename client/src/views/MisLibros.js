@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../contexts/userContext';
 import { simpleGet } from '../services/simpleGet';
 import { simpleGetAuthenticated } from '../services/simpleGetAuthenticated';
@@ -11,6 +11,7 @@ const MisLibros = () => {
     const [allUsers, setAllUsers] = useState();
     const {id} = useParams();
     const {user, setUser} = useUser();
+    const navigate = useNavigate();
 
     const getBooks = async()=>{
         try{
@@ -36,7 +37,7 @@ const MisLibros = () => {
 
     const getUsers = async()=>{
         try{
-            const response = await simpleGetAuthenticated('/api/users/')
+            const response = await simpleGetAuthenticated('/api/users')
             console.log(response)
             setAllUsers(response.data);
             
@@ -48,10 +49,18 @@ const MisLibros = () => {
     }
 
     const renderSolicitados = (book) =>{
-        const aux = allUsers?.map(user=> user.interesados).filter(libro=>libro._id===book._id)
+        const aux = allUsers?.map(user=> user.interesados).map(libro=>libro.includes(book._id))
         console.log (aux)
+        
         if(aux){
-            return(<><button>Solicitado</button></>)
+            if(aux.includes(true)){
+
+                return(<><button onClick={()=>navigate(`/solicitado/${book._id}`)}>Solicitado</button></>)
+
+            }
+
+
+           
         }
     }
 
@@ -59,7 +68,6 @@ const MisLibros = () => {
         getBooks();
         getAllBooks();
         getUsers();
-        renderSolicitados();
     }, []);
 
     return (

@@ -15,6 +15,10 @@ const CreateBook = () => {
 
         const response = await simplePost('/api/book',values)
         console.log(values)
+        console.log(response)
+        user.books.push(response.data.book)
+        setUser({...user})
+        
         if(response.data.message !== ""){
             console.log("ERRORES", response.data);
             const errorResponse = response.data.errors;
@@ -26,7 +30,7 @@ const CreateBook = () => {
         }
         setErrors(errorArr);
         }else{
-
+            
             navigate('/')
         }
     }

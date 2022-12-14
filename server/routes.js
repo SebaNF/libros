@@ -1,6 +1,6 @@
 const UserController = require("./controllers/user.controller")
 const authenticate = require("./config/authenticate");
-const { createBook, getBooks, getOneBook, updateBook, deleteBook, getAllBooks } = require("./controllers/Book.controllers");
+const { createBook, getBooks, getOneBook, updateBook, deleteBook, getAllBooks, tradeBooks } = require("./controllers/Book.controllers");
 
 module.exports = function(app){
 
@@ -13,7 +13,8 @@ module.exports = function(app){
     app.get('/api/all-books/', getAllBooks);
     app.get('/api/book/:id', getOneBook);
     app.put('/api/book/:id',updateBook);
-    app.delete('/api/book/:id', deleteBook);
+    app.delete('/api/book/:id', deleteBook)
+    app.put('/api/trade-book', tradeBooks);
 
     //ENDPOINTS QUE NECESITAN AUTENTICACION
     app.get("/api/users",authenticate, UserController.getAll);
